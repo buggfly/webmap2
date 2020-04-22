@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Single Image WMS</title>
+    <link rel="stylesheet" href="https://openlayers.org/en/v5.3.0/css/ol.css" type="text/css">
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="ol5.3.0/build/ol.js"></script>
+
+  </head>
+  <body>
+    <div id="map" class="map"></div>
+    <script>
+      /*import Map from 'ol/Map.js';
+      import View from 'ol/View.js';
+      import {Image as ImageLayer, Tile as TileLayer} from 'ol/layer.js';
+      import ImageWMS from 'ol/source/ImageWMS.js';
+      import OSM from 'ol/source/OSM.js';*/
+
+      var layers = [
+        new ol.layer.Tile({
+          source: new ol.source.OSM()
+        }),
+        new ol.layer.Image({
+          //extent: [-13884991, 2870341, -7455066, 6338219],
+		  extent: [16667341, -4114359, 16967341, -3974359],
+          source: new ol.source.ImageWMS({
+            /*url: 'https://ahocevar.com/geoserver/wms',
+            params: {'LAYERS': 'topp:states'},
+            ratio: 1,
+            serverType: 'geoserver'*/
+
+			//projection: 'EPSG:20356',
+            url: 'http://localhost:8080/geoserver/land/wms',
+            params: {'LAYERS': 'Land'},
+            ratio: 1,
+            serverType: 'geoserver'
+
+
+          })
+        })
+      ];
+      var map = new ol.Map({
+        layers: layers,
+        target: 'map',
+        view: new ol.View({
+          center: [16767341, -4044359],
+          zoom: 4
+        })
+      });
+
+     
+    </script>
+  </body>
+</html>
